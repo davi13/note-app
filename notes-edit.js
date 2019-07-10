@@ -7,8 +7,7 @@ let notes = getSavedNotes();
 let note = notes.find(function (note) {
     return note.id === noteId;
 });
-
-
+//Redirection if there is no id provide
 if (note === undefined) {
     location.assign('/index.html');
 }
@@ -18,8 +17,6 @@ bodyElement.value = note.body;
 titlElement.addEventListener('input', function (e) {
     note.title = e.target.value;
     saveNotes(notes);
-    console.log(titlElement);
-
 });
 //Selection of textArea and modfication 
 bodyElement.addEventListener('input', function (e) {
@@ -31,7 +28,6 @@ button.addEventListener('click', function () {
     removeNote(note.id);
     saveNotes(notes);
     location.assign('/index.html');
-
 });
 window.addEventListener('storage', function (e) {
     if (e.key === 'notes') {
