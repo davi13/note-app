@@ -5,12 +5,13 @@ const filters = {
 renderNotes(notes, filters)
 document.querySelector('#create-note').addEventListener('click', function (e) {
     const id = uuidv4();
-    const now = moment();
+    const timeStamp = moment().valueOf();
     notes.push({
         id: id,
         title: '',
         body: '',
-        createAt: now.format('DD/MM/YYYY HH:mm.ss')
+        createAt: timeStamp,
+        updateAt: timeStamp
     })
     saveNotes(notes);
     //renderNotes(notes, filters);

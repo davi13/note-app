@@ -39,14 +39,14 @@ const generateNoteDOM = function (note) {
         saveNotes(notes);
         renderNotes(notes, filters);
     })
-
+    const now = moment().fromNow([note.createAt]);
     //Setup the note title text
     if (note.title.length > 0) {
         textEL.textContent = note.title;
-        time.textContent = note.createAt;
+        time.textContent = now;
     } else {
         textEL.textContent = 'Unnamed note';
-        time.textContent = note.createAt;
+        time.textContent = now;
 
     }
     //redirecting user to edit-note page
@@ -70,4 +70,8 @@ const renderNotes = function (notes, filters) {
         const noteEl = generateNoteDOM(note)
         document.querySelector('#notes').appendChild(noteEl)
     })
+}
+//Generate the last edited message
+const generateLastEdited = function (timeStamp) {
+    return `Last edited ${moment(timeStamp).fromNow()}`;
 }
