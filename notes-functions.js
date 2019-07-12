@@ -29,6 +29,7 @@ const generateNoteDOM = function (note) {
     const noteEl = document.createElement('div');
     const textEL = document.createElement('a')
     const button = document.createElement('button');
+    const time = document.createElement('span');
 
     //Setup the remove note button
     button.textContent = 'X';
@@ -41,15 +42,19 @@ const generateNoteDOM = function (note) {
 
     //Setup the note title text
     if (note.title.length > 0) {
-        textEL.textContent = note.title
+        textEL.textContent = note.title;
+        time.textContent = note.createAt;
     } else {
         textEL.textContent = 'Unnamed note';
+        time.textContent = note.createAt;
+
     }
     //redirecting user to edit-note page
     textEL.setAttribute('href', `/edit.html#${note.id}`);
 
     //noteEl.appendChild(textEL);
     noteEl.appendChild(textEL);
+    noteEl.appendChild(time);
     return noteEl;
 }
 

@@ -15,12 +15,16 @@ titlElement.value = note.title;
 bodyElement.value = note.body;
 //Selection of input and modfication
 titlElement.addEventListener('input', function (e) {
+    const updateAt = moment();
+    note.createAt = updateAt.format('DD.MM.YYYY HH:mm');
     note.title = e.target.value;
     saveNotes(notes);
 });
 //Selection of textArea and modfication 
 bodyElement.addEventListener('input', function (e) {
+
     note.body = e.target.value;
+    note.createAt = updateAt.format('DD.MM.YYYY HH:mm');
     saveNotes(notes);
 });
 //Removing the hole note.

@@ -5,10 +5,12 @@ const filters = {
 renderNotes(notes, filters)
 document.querySelector('#create-note').addEventListener('click', function (e) {
     const id = uuidv4();
+    const now = moment();
     notes.push({
         id: id,
         title: '',
-        body: ''
+        body: '',
+        createAt: now.format('DD/MM/YYYY HH:mm.ss')
     })
     saveNotes(notes);
     //renderNotes(notes, filters);
@@ -31,25 +33,16 @@ window.addEventListener('storage', function (e) {
     }
 });
 
-const now = new Date();
-//console.log(now)
-// console.log(`year: ${now.getFullYear()}`);
-// console.log(`month: ${now.getMonth()}`);
-// console.log(`Hour: ${now.getHours()}`);
-// console.log(`minute: ${now.getMinutes()}`);
-// console.log(`seconds: ${now.getSeconds()}`);
 
-const timeStamp = now.getTime();
+// const now = moment();
+// now.subtract(1, 'week').subtract(20, 'days');
 
-const dateOne = new Date('march 1 2018 12:00:00');
-const dateOneTimeStamp = dateOne.getTime();
-const dateTwo = new Date();
-const dataTwoTimeStamp = dateTwo.getTime()
+// const nowTimestamp = now.valueOf();
+// console.log(moment(nowTimestamp).toString());
+//const newMoment = moment().set({ 'day': 5, 'year': 1980, 'month': 9, });
 
-if (dateOneTimeStamp < dataTwoTimeStamp) {
-    console.log(dateOne.toString());
+// const birthday = moment();
+// birthday.date(10).month(9).year(1980);
 
-} else if (dateTwo < dateOne) {
-    console.log(dateTwo.toString());
 
-}
+
