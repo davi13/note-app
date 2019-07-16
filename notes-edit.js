@@ -1,3 +1,5 @@
+'use strict';
+
 //Modification in the edit page
 const titlElement = document.querySelector('#note-title');
 const bodyElement = document.querySelector('#note-body');
