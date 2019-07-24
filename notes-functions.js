@@ -55,7 +55,7 @@ const generateNoteDOM = (note) => {
 
     }
     //redirecting user to edit-note page
-    textEL.setAttribute('href', `/edit.html#${note.id}`);
+    textEL.setAttribute('href', `edit.html#${note.id}`);
 
     //noteEl.appendChild(textEL);
     noteEl.appendChild(textEL);
