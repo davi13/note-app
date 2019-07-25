@@ -1,125 +1,116 @@
-'use strict';
+'use strict'
 
-// Read existing notes from localStoragex
+// Read existing notes from localStorage
 const getSavedNotes = () => {
-    const notesJSON = localStorage.getItem('notes');
-    try {
-        return notesJSON ? JSON.parse(notesJSON) : [];
-    } catch (e) {
-        return [];
-    }
-    // if (notesJSON !== null) {
-    //     return JSON.parse(notesJSON)
-    // } else {
-    //     return []
-    // }
+    const notesJSON = localStorage.getItem('notes')
 
+    try {
+        return notesJSON ? JSON.parse(notesJSON) : []
+    } catch (e) {
+        return []
+    }
 }
 
 // Save the notes to localStorage
 const saveNotes = (notes) => {
-    localStorage.setItem('notes', JSON.stringify(notes));
+    localStorage.setItem('notes', JSON.stringify(notes))
 }
 
-//Remove note from the List
+// Remove a note from the list
 const removeNote = (id) => {
     const noteIndex = notes.findIndex((note) => note.id === id)
-    if (noteIndex >= -1) {
-        notes.splice(noteIndex, 1);
+
+    if (noteIndex > -1) {
+        notes.splice(noteIndex, 1)
     }
 }
+
 // Generate the DOM structure for a note
 const generateNoteDOM = (note) => {
+    const noteEl = document.createElement('a')
+    const textEl = document.createElement('p')
+    const statusEl = document.createElement('p')
 
-    const noteEl = document.createElement('div');
-    const textEL = document.createElement('a')
-    const button = document.createElement('button');
-    const time = document.createElement('span');
-
-    //Setup the remove note button
-    button.textContent = 'X';
-    noteEl.appendChild(button);
-    button.addEventListener('click', () => {
-        removeNote(note.id);
-        saveNotes(notes);
-        renderNotes(notes, filters);
-    })
-    const now = moment().fromNow([note.createAt]);
-    //Setup the note title text
+    // Setup the note title text
     if (note.title.length > 0) {
-        textEL.textContent = note.title;
-        time.textContent = now;
+        textEl.textContent = note.title
     } else {
-        textEL.textContent = 'Unnamed note';
-        time.textContent = now;
-
+        textEl.textContent = 'Unnamed note'
     }
-    //redirecting user to edit-note page
-    textEL.setAttribute('href', `edit.html#${note.id}`);
+    textEl.classList.add('list-item__title')
+    noteEl.appendChild(textEl)
 
-    //noteEl.appendChild(textEL);
-    noteEl.appendChild(textEL);
-    noteEl.appendChild(time);
-    return noteEl;
+    // Setup the link
+    noteEl.setAttribute('href', `edit.html#${note.id}`)
+    noteEl.classList.add('list-item')
+
+    // Setup the status message
+    statusEl.textContent = generateLastEdited(note.updatedAt)
+    statusEl.classList.add('list-item__subtitle')
+    noteEl.appendChild(statusEl)
+
+    return noteEl
 }
-//Sort your notes by one three ways 
-const sorteNotes = (notes, sortBy) => {
+
+// Sort your notes by one of three ways
+const sortNotes = (notes, sortBy) => {
     if (sortBy === 'byEdited') {
         return notes.sort((a, b) => {
             if (a.updatedAt > b.updatedAt) {
-                return -1;
+                return -1
             } else if (a.updatedAt < b.updatedAt) {
-                return 1;
+                return 1
             } else {
-                return 0;
+                return 0
             }
-        });
+        })
     } else if (sortBy === 'byCreated') {
         return notes.sort((a, b) => {
-            if (a.createAt > b.createAt) {
-                return -1;
-            } else if (a.createAt < b.createAt) {
-                return 1;
+            if (a.createdAt > b.createdAt) {
+                return -1
+            } else if (a.createdAt < b.createdAt) {
+                return 1
             } else {
-                return 0;
+                return 0
             }
         })
     } else if (sortBy === 'alphabetical') {
         return notes.sort((a, b) => {
             if (a.title.toLowerCase() < b.title.toLowerCase()) {
-                return -1;
+                return -1
             } else if (a.title.toLowerCase() > b.title.toLowerCase()) {
-                return 1;
+                return 1
             } else {
-                return 0;
+                return 0
             }
         })
-    }
-    else {
+    } else {
         return notes
     }
-
 }
 
 // Render application notes
 const renderNotes = (notes, filters) => {
-    const notesEl = document.querySelector('#notes');
-    notes = sorteNotes(notes, filters.sortBy);
-    const filteredNotes = notes.filter((note) => note.title.toLowerCase().includes(filters.searchText.toLowerCase()));
+    const notesEl = document.querySelector('#notes')
+    notes = sortNotes(notes, filters.sortBy)
+    const filteredNotes = notes.filter((note) => note.title.toLowerCase().includes(filters.searchText.toLowerCase()))
 
     notesEl.innerHTML = ''
+
     if (filteredNotes.length > 0) {
         filteredNotes.forEach((note) => {
             const noteEl = generateNoteDOM(note)
             notesEl.appendChild(noteEl)
         })
     } else {
-        const emptyMessage = document.createElement('p');
-        emptyMessage.textContent = 'No notes to show';
-        emptyMessage.classList.add('empty-message');
-        notesEl.appendChild(emptyMessage);
+        const emptyMessage = document.createElement('p')
+        emptyMessage.textContent = 'No notes to show'
+        emptyMessage.classList.add('empty-message')
+        notesEl.appendChild(emptyMessage)
     }
-
 }
-//Generate the last edited message
-const generateLastEdited = (timeStamp) => `Last edited ${moment(timeStamp).fromNow()}`;
+
+// Generate the last edited message
+const generateLastEdited = (timestamp) => {
+    return `Last edited ${moment(timestamp).fromNow()}`
+}
