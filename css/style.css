@@ -1,4 +1,10 @@
 /* Base Styles */
+/*
+BEM (block, element, modifier)
+block -> house
+element -> house__kitchen
+modiefier -> house--condo
+*/
 
 * {
     box-sizing: border-box;
