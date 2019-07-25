@@ -1,17 +1,17 @@
 'use strict'
 
-let notes = getSavedNotes()
+let notes = getSavedNotes();
 
 const filters = {
     searchText: '',
     sortBy: 'byEdited'
 }
 
-renderNotes(notes, filters)
+renderNotes(notes, filters);
 
 document.querySelector('#create-note').addEventListener('click', (e) => {
-    const id = uuidv4()
-    const timestamp = moment().valueOf()
+    const id = uuidv4();
+    const timestamp = moment().valueOf();
 
     notes.push({
         id: id,
