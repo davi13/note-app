@@ -1,1 +1,3 @@
-console.log('index.js');
+import { getNotes } from './notes.js';
+
+console.log(getNotes());
