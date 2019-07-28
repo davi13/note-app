@@ -1,6 +1,29 @@
-// Generate the last edited message
-const generateLastEdited = (timestamp) => {
-    return `Last edited ${moment(timestamp).fromNow()}`;
+import moment from 'moment';
+// Generate the DOM structure for a note
+const generateNoteDOM = (note) => {
+    const noteEl = document.createElement('a');
+    const textEl = document.createElement('p');
+    const statusEl = document.createElement('p');
+
+    // Setup the note title text
+    if (note.title.length > 0) {
+        textEl.textContent = note.title;
+    } else {
+        textEl.textContent = 'Unnamed note';
+    }
+    textEl.classList.add('list-item__title');
+    noteEl.appendChild(textEl);
+
+    // Setup the link
+    noteEl.setAttribute('href', `edit.html#${note.id}`);
+    noteEl.classList.add('list-item');
+
+    // Setup the status message
+    statusEl.textContent = generateLastEdited(note.updatedAt);
+    statusEl.classList.add('list-item__subtitle');
+    noteEl.appendChild(statusEl);
+
+    return noteEl;
 }
 
 // Render application notes
@@ -23,3 +46,11 @@ const renderNotes = (notes, filters) => {
         notesEl.appendChild(emptyMessage);
     }
 }
+
+// Generate the last edited message
+const generateLastEdited = (timestamp) => {
+    return `Last edited ${moment(timestamp).fromNow()}`;
+}
+
+export { generateNoteDOM, renderNotes, generateLastEdited }
+
