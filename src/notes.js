@@ -32,7 +32,8 @@ const createNotes = () => {
         createdAt: timestamp,
         updatedAt: timestamp
     });
-    saveNotes()
+    saveNotes();
+    return id;
 }
 // Remove a note from the list
 const removeNote = (id) => {

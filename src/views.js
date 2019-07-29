@@ -1,5 +1,7 @@
 import moment from 'moment';
 import { getFilters } from './filters';
+import { sortNotes } from './notes';
+
 
 // Generate the DOM structure for a note
 const generateNoteDOM = (note) => {
@@ -32,7 +34,7 @@ const generateNoteDOM = (note) => {
 const renderNotes = () => {
     const notesEl = document.querySelector('#notes');
     const filters = getFilters();
-    const notes = sortNotes(notes, filters.sortBy);
+    const notes = sortNotes(filters.sortBy);
     const filteredNotes = notes.filter((note) => note.title.toLowerCase().includes(filters.searchText.toLowerCase()));
 
     notesEl.innerHTML = '';
