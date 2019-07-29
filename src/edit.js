@@ -1,1 +1,37 @@
-console.log('edit.js');
+import { initializedEditPAge } from './views';
+import { updateNote } from './notes';
+const titleElement = document.querySelector('#note-title');
+const bodyElement = document.querySelector('#note-body');
+const removeElement = document.querySelector('#remove-note');
+const dateElement = document.querySelector('#last-edited');
+const noteId = location.hash.substring(1);
+
+initializedEditPAge(noteId)
+
+titleElement.addEventListener('input', (e) => {
+    const note = updateNote(noteId, {
+        title: e.target.value
+    })
+
+    dateElement.textContent = generateLastEdited(note.updatedAt);
+})
+
+bodyElement.addEventListener('input', (e) => {
+    const note = updateNote(noteId, {
+        body: e.target.value
+    })
+
+    dateElement.textContent = generateLastEdited(note.updatedAt);
+})
+
+removeElement.addEventListener('click', (e) => {
+    removeNote(note.id);
+    saveNotes(notes);
+    location.assign('index.html');
+})
+
+window.addEventListener('storage', (e) => {
+    if (e.key === 'notes') {
+        initializedEditPAge(noteId);
+    }
+})
