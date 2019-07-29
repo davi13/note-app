@@ -75,4 +75,5 @@ const generateLastEdited = (timestamp) => {
 }
 
 export { generateNoteDOM, renderNotes, generateLastEdited, initializedEditPAge }
+//i cant see the scripts
 
