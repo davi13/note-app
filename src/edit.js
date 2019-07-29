@@ -1,5 +1,5 @@
 import { initializedEditPAge } from './views';
-import { updateNote } from './notes';
+import { updateNote, removeNote } from './notes';
 const titleElement = document.querySelector('#note-title');
 const bodyElement = document.querySelector('#note-body');
 const removeElement = document.querySelector('#remove-note');
@@ -26,7 +26,6 @@ bodyElement.addEventListener('input', (e) => {
 
 removeElement.addEventListener('click', (e) => {
     removeNote(note.id);
-    saveNotes(notes);
     location.assign('index.html');
 })
 
